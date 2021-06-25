@@ -1,9 +1,13 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 plugins {
     id 'java'
 }
 
 group 'org.powerprove'
 version '1.0-SNAPSHOT'
+
+rootProject.ext.version = version
 
 repositories {
     mavenCentral()
@@ -12,6 +16,7 @@ repositories {
 dependencies {
     implementation 'commons-cli:commons-cli:1.4'
     implementation 'org.smali:dexlib2:2.4.0'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
@@ -28,6 +33,17 @@ jar {
         }
     }
     manifest {
-        attributes 'Main-Class' : 'powerprove.dexobfuscator.jar.Main'
+        attributes  'Main-Class' : 'powerprove.dexobfuscator.jar.Main',
+                    'Implementation-Version'    : version
+    }
+}
+
+processResources {
+    // Replace llbo.properties
+    from('src/main/resources/properties') {
+        include '**/*.properties'
+        into 'properties'
+        filter(ReplaceTokens, tokens: ["project_name"   : getName(),
+                                       "version_name"   : version])
     }
 }

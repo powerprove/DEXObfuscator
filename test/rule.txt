@@ -1,0 +1,28 @@
+public class b
+
+class a {
+	*;
+}
+
+public class a {
+	private <fields>;
+	public <methods>;
+
+}
+
+private class c
+
+class * implements java.io.Serializable
+
+
+class * implements java.io.Serializable {
+    public *;
+}
+
+private class * {
+	public *;
+    private int a(String, String);
+    private native String a(int, int);
+
+    public int b;
+}

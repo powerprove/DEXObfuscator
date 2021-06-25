@@ -5,9 +5,9 @@ import powerprove.utils.file.FileUtils;
 import java.io.File;
 
 public class Configuration {
-    private final File inputFile;
-    private final File outputFile;
-    private final File ruleFile;
+    public final File inputFile;
+    public final File outputFile;
+    public final File ruleFile;
 
     public boolean verbose = false;
 

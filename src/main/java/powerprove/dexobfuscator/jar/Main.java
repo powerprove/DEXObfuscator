@@ -3,6 +3,7 @@ package powerprove.dexobfuscator.jar;
 import org.apache.commons.cli.*;
 import powerprove.dexobfuscator.jar.lib.Configuration;
 import powerprove.dexobfuscator.jar.lib.Obfuscator;
+import powerprove.utils.version.JarVersion;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -20,6 +21,7 @@ public class Main {
         CommandLineParser parser = new DefaultParser();
         CommandLine cmdLine = null;
 
+        printVersion();
         try {
             cmdLine = parser.parse(allOptions, args);
         } catch (ParseException e){
@@ -40,6 +42,7 @@ public class Main {
         }
 
         try {
+            //
             Configuration configuration = new Configuration(cmdLine.getOptionValue("input"),
                                                             cmdLine.getOptionValue("output"),
                                                             cmdLine.getOptionValue("rule"));
@@ -50,6 +53,7 @@ public class Main {
             configuration.applyConvertReflection = cmdLine.hasOption("applyConvertReflection");
 
             Obfuscator obfuscator = new Obfuscator(configuration);
+            obfuscator.printOptions();
             obfuscator.execute();
 
         } catch (Exception e) {
@@ -139,5 +143,10 @@ public class Main {
         printWriter.println();
 
         printWriter.flush();
+    }
+
+    private static void printVersion() {
+        JarVersion readVersion = new JarVersion();
+        readVersion.readVersionInfoInManifest();
     }
 }
